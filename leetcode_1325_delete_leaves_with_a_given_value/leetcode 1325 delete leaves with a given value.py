@@ -7,48 +7,38 @@
 class Solution:
     def removeLeafNodes(self, root: TreeNode, target: int) -> TreeNode:
         
-        if not root:
-            return root
-        
-        if (root.left is None) and (root.right is None):
-            if root.val == target:
-                root = None
-            return root
-        
-        nodes_target_val = []
-        nodes_explore = []
-        
-        if root.left:
-            nodes_explore.append([root, 'left', root.left])
-            
-        if root.right:
-            nodes_explore.append([root, 'right', root.right])
+        nodes_explore = [root]
+        all_nodes = []
         
         while nodes_explore:
             
-            par, par_dir, cur_node = nodes_explore.pop(0)
+            cur_node = nodes_explore.pop(0)
             
-            if cur_node.val == target:
-                nodes_target_val.append([par, par_dir, cur_node])
-                
             if cur_node.left:
-                nodes_explore.append([cur_node, 'left', cur_node.left])
+                all_nodes.append([cur_node, 'left', cur_node.left])
+                nodes_explore.append(cur_node.left)
                 
             if cur_node.right:
-                nodes_explore.append([cur_node, 'right', cur_node.right])
-                
-        while nodes_target_val:
+                all_nodes.append([cur_node, 'right', cur_node.right])
+                nodes_explore.append(cur_node.right)
+        
+        while all_nodes:
             
-            par, par_dir, cur_node = nodes_target_val.pop()
+            par_node, direction, cur_node = all_nodes.pop()
             
-            # Is it a leaf?
             if (cur_node.left is None) and (cur_node.right is None):
-                if par_dir is 'left':
-                    par.left = None
-                else:
-                    par.right = None
-                    
-        if (root.left is None) and (root.right is None) and (root.val == target):
-            root = None
+                if cur_node.val == target:
+                    if direction == 'left':
+                        par_node.left = None
+                    else:
+                        par_node.right = None
+                        
+        if (root.left is None) and (root.right is None):
+            if root.val == target:
+                root = None
             
         return root
+                        
+                        
+                    
+                        
