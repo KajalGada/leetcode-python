@@ -24,6 +24,10 @@ class Solution:
 
             # Get partitions
             part1_ind = (left_ind + right_ind)//2
+            
+            # part1_size = part1_ind + 1
+            # part2_ind = (len_comb_half - part1_size) - 1  
+            # (-1) cause index starts at 0
             part2_ind = len_comb_half - part1_ind - 2
 
             # Get numbers left and right of partition
