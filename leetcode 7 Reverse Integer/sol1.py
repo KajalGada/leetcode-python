@@ -1,21 +1,40 @@
 class Solution:
     def reverse(self, x: int) -> int:
         
+        ans = 0
+        
         sign = 1
+        int_max = (2**31) - 1
+        
         if x < 0:
             sign = -1
-            x = x * sign
+            int_max = (2**31)
+            x *= sign
             
-        ans = 0
+        int_max_10 = int_max//10
+        
         while x > 0:
+            
             digit = x % 10
-            ans *= 10
-            ans += digit
             x = x//10
             
-        ans = ans * sign
+            # ans * 10 <= int_max
+            # ans <= int_max//10
+            if (ans > int_max_10):
+                ans = 0
+                break
+                
+            ans *= 10
+            
+            # ans + digit <= int_max
+            # digit <= (int_max - ans)
+            if digit > (int_max - ans):
+                ans = 0
+                break
+                
+            ans += digit
+            
+        ans *= sign
         
-        max_num = 2**31
-        if (-1*max_num) <= ans <= (max_num - 1):
-            return ans
-        return 0
+        return ans
+        
