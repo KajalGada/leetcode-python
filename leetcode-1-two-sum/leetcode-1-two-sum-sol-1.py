@@ -18,9 +18,11 @@ class Solution:
                 end_ind -= 1
         
         org_start_ind = nums_org.index(nums[start_ind])
-        org_end_ind = nums_org.index(nums[end_ind])
         
-        if org_start_ind == org_end_ind:
-            org_end_ind = nums_org.index(nums[end_ind], org_start_ind+1)
+        search_start_ind = 0
+        if nums[start_ind] == nums[end_ind]:
+            search_start_ind = org_start_ind + 1
+            
+        org_end_ind = nums_org.index(nums[end_ind], search_start_ind)
         
         return [org_start_ind, org_end_ind]
