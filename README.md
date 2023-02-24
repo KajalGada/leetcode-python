@@ -1,3 +1,10 @@
 # leetcode-python
 
-Practicing leetcode problems
+Things to remember:
++ Sort the input array. Don't assume it is sorted.
+
+
+Special functions:
+
+
+Functions:
